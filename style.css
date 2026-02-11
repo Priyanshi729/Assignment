@@ -68,7 +68,7 @@
   height: 18px;
   /* width: 1px; */
   display: flex;
-  white-space: nowrap; 
+  white-space: nowrap;
 
   font-family: "Spline Sans", sans-serif;
   font-weight: 600;
@@ -158,7 +158,7 @@
   height: 35px;
   width: 97px;
 
- font-family: "Spline Sans", sans-serif;
+  font-family: "Spline Sans", sans-serif;
   font-weight: 600;
   font-style: SemiBold;
   font-size: 12px;
@@ -216,7 +216,7 @@
 }
 
 .heading {
-  font-family: 'Zain', sans-serif;
+  font-family: 'Zin Display', sans-serif;
   font-weight: 600;
   font-style: Demo;
   font-size: 33px;
