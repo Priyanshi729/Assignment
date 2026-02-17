@@ -325,6 +325,8 @@ td {
 .pending {
   background: #E8ECF1;
   color: #626D82;
+  width:fit-content;
+  
 }
 
 .Completed {
@@ -337,6 +339,9 @@ td {
   font-weight: 500;
   font-style: Italic;
   font-size: 16px;
+  display: flex;
+  gap: 2px;
+
 }
 
 .btn {
@@ -358,4 +363,9 @@ td {
   position: relative;
   top: 5px;
   left: 15px;
+}
+.waiting{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
