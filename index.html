@@ -24,17 +24,20 @@
             </div>
           </div>
           <div id="user-drop">
-            <img src="images/Icon Right.svg" alt="drop">
+            <button class="drop-button"><img src="images/Icon Right.svg" alt="drop"></button>
+            <div class="user-log">
+              <button class="log-button">Logout</button>
+            </div>
           </div>
         </div>
         <div class="menu">
-          <p class="menu-item"><img src="images/home 1.svg" class="menu-icon">Home</p>
+          <a href="#" class="menu-item"><img src="images/home 1.svg" class="menu-icon">Home</a>
           <div id="menu-item-wrapper">
-            <p class="menu-item"><img src="images/file-text 1.svg" class="menu-icon">Documents</p>
+            <a href="#" class="menu-item"><img src="images/file-text 1.svg" class="menu-icon">Documents</a>
           </div>
-          <p class="menu-item"><img src="images/message-circle 1.svg" class="menu-icon">Chat with Neptune</p>
-          <p class="menu-item"><img src="images/help-circle 1.svg" class="menu-icon">Help</p>
-          <p class="menu-item"><img src="images/settings 1.svg" class="menu-icon">Settings</p>
+          <a href="#" class="menu-item"><img src="images/message-circle 1.svg" class="menu-icon">Chat with Neptune</a>
+          <a href="#" class="menu-item"><img src="images/help-circle 1.svg" class="menu-icon">Help</a>
+          <a href="#" class="menu-item"><img src="images/settings 1.svg" class="menu-icon">Settings</a>
         </div>
       </div>
       <div id="bottom">
@@ -61,9 +64,17 @@
           <div class="heading">
             <p>My Documents</p>
           </div>
-          <div class="search-bar">
-            <input type="text" placeholder="Search documents" class="search">
-            <img src="images/Vector.svg" class="search-logo">
+          <div class="right-bottom">
+            <div class="delete">
+              <button class="del-button"> Delete</button>
+            </div>
+            <div class="add">
+              <button class="add-button">Add</button>
+            </div>
+            <div class="search-bar">
+              <input type="text" placeholder="Search documents" class="search">
+              <img src="images/Vector.svg" class="search-logo">
+            </div>
           </div>
         </div>
         <div id="table-content">
@@ -72,83 +83,50 @@
               <tr>
                 <th><input type="checkbox"><img src="images/Icon Right.svg" class="table-drop"></th>
                 <th>DocumentName</th>
-                <th>Status</th>
+                <th>Status
+                  <select class="drop-down">
+                    <option>Select</option>
+                    <option class="Pending">Pending</option>
+                    <option class="Need-Signing">Need Signing</option>
+                    <option class="completed">Completed</option>
+                  </select>
+                </th>
                 <th>Last Modified</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>Title of Document Goes Here</td>
-                <td><span class="status need">Needs Signing</span></td>
-                <td><small
-                    style=" font-family: 'Inter', sans-serif;font-weight: 500;font-style: Medium;font-size: 16px;">10/22/2024<br>2:01
-                    pm</small></td>
-                <td><button class="btn">Sign Now</button><img class="dots"
-                    src="images/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 6.svg" class="dots"></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>Title of Document Goes Here</td>
-                <td class="waiting"><span class="status pending">Pending</span><small class="wait">
-                    <span class="highlight" style="color: #B5BDCD;">Waiting for</span> 1 person </small></td>
-
-
-                <td><small
-                    style=" font-family: 'Inter', sans-serif;font-weight: 500;font-style: Medium;font-size: 16px;">10/22/2024<br>2:01
-                    pm</small></td>
-                <td><button class="btn">Preview</button><img class="dots"
-                    src="images/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 6.svg"></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>Title of Document Goes Here</td>
-
-                <td class="waiting"><span class="status pending">Pending</span><small class="wait">
-                    <span class="highlight"style="color: #B5BDCD;">Waiting for</span> 1 person </small></td>
-
-                <td><small
-                    style=" font-family: 'Inter', sans-serif;font-weight: 500;font-style: Medium;font-size: 16px;">10/22/2024<br>2:01
-                    pm</small></td>
-                <td><button class="btn">Preview</button><img
-                    src="images/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 6.svg" class="dots"></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>Title of Document Goes Here</td>
-                <td><span class="status Completed">Completed</span></td>
-                <td><small
-                    style=" font-family: 'Inter', sans-serif;font-weight: 500;font-style: Medium;font-size: 16px;">10/22/2024<br>2:01
-                    pm</small></td>
-                <td><button class="btn">Download Pdf</button><img
-                    src="images/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 6.svg" class="dots"></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td width="35%">Title of Document Goes Here</td>
-                <td><span class="status Completed">Completed</span></td>
-                <td><small
-                    style="font-family: 'Inter', sans-serif;font-weight: 500;font-style: Medium;font-size: 16px;">10/22/2024<br>2:01
-                    pm</small></td>
-                <td><button class="btn">Download Pdf</button><img
-                    src="images/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 6.svg" class="dots"></td>
-              </tr>
-              <tr style="border-bottom: none;">
-                <td><input type="checkbox"></td>
-                <td>Title of Document Goes Here</td>
-                <td><span class="status Completed">Completed</span></td>
-                <td><small
-                    style=" font-family: 'Inter', sans-serif;font-weight: 500;font-style: Medium;font-size: 16px;">10/22/2024<br>2:01
-                    pm</small></td>
-                <td><button class="btn">Download Pdf</button><img
-                    src="images/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24 6.svg" class="dots"></td>
-              </tr>
-            </tbody>
+            <tbody class="table-body"></tbody>
           </table>
+        </div>
+        <div id="form-div">
+          <form action="" class="form-doc" id="form-con">
+            <div id="add-form">
+              <p class="doc-add">Add Document</p>
+              <div class="form-element">
+                <div class="doc-title-in"><label for="doc-title" class="doc-form">Document Title</label>
+                  <input id="doc-title" type="text" placeholder="Enter document title" class="form-input">
+                </div>
+                <div class="doc-title-sel">
+                  <label for="doc-status" class="doc-form">Status</label>
+                  <select id="doc-status" class="form-input">
+                    <option>Select Status</option>
+                    <option class="Need-Signing">Need Signing</option>
+                    <option class="Pending">Pending</option>
+                    <option class="completed">Completed</option>
+                  </select>
+                </div>
+                <div class="delete-add">
+                  <button type="button" class="del-button"> Cancel</button>
+                  <button type="submit" class="add-button">Add</button>
+                </div>
+              </div>
+              <div>
+              </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
 
 </html>
