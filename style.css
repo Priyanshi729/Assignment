@@ -33,6 +33,7 @@
 }
 
 .user-details {
+  position: relative;
   height: 69px;
    width: 250px;
 
@@ -66,7 +67,7 @@
 
 .user-name {
   height: 18px;
-  /* width: 1px; */
+ 
   display: flex;
   white-space: nowrap;
 
@@ -79,7 +80,6 @@
 
 .user-role {
   height: 18px;
-  /* width: 159px; */
   font-family: "Spline Sans", sans-serif;
   font-weight: 400;
   font-style: Regular;
@@ -142,7 +142,7 @@
 }
 
 #menu-item-wrapper {
-  /* height: 51px; */
+ 
   background-color: #D3F7B5;
   border-radius: 5px;
   padding-top: 10px;
@@ -211,6 +211,7 @@
   display: flex;
   flex-direction: column;
   gap: 33px;
+  position: relative;
 }
 
 .items {
@@ -242,7 +243,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* gap: 20px; */
 }
 .right-bottom{
   display: flex;
@@ -255,18 +255,6 @@
   font-weight: 600;
   font-style: Demo;
   font-size: 33px;
-}
-.del-button{
-  height: 34px;
-  width: 100px;
-  color: #626d82;
-  background-color: #FFFFFF;
-  border: 1px solid #B5BDCD;
-  border-radius: 5px;
-  font-size: 12px;
-  font-family: 'Spline Sans', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
 }
 .add-button {
   height: 34px;
@@ -285,7 +273,6 @@
   position: relative;
   width: 250px;
   height: 40px;
-  /* border: 1px solid white; */
   
 }
 
@@ -316,7 +303,6 @@
 
 #table-content {
   width: 100%;
-  /* height: 100%; */
   background: #FFFFFF;
   border: 0.5px solid #B5BDCD;
   border-radius: 8px;
@@ -324,16 +310,13 @@
 }
 
 .doc-table {
-  /* position: relative; */
   width: 100%;
-  /* height: 100%;  */
   border-collapse: collapse;
 
 }
 
 .table-drop {
   position: relative;
-  /* height: 19px; */
   height: 14px;
   width: 14px;
   color: #BABABA;
@@ -360,7 +343,6 @@ td {
   font-style: SemiBold;
   font-size: 16px;
   text-align: left;
-  /* padding: 5px; */
   border-bottom: 1px solid #EBEBEB;
   padding: 20px;
 }
@@ -388,31 +370,40 @@ td {
   font-size: 16px;
 }
 
-.need {
+.Need-Signing{
   background-color: #1F4451;
   color: #FFFFFF;
 }
 
-.pending {
+.Pending {
   background: #E8ECF1;
   color: #626D82;
   width: fit-content;
 
 }
 
-.Completed {
+.Completed{
   background: #D3F7B5;
   color: #626D82;
 }
 
-.wait {
+.waiting-text {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-style: Italic;
   font-size: 16px;
   display: flex;
-  gap: 2px;
+  gap: 5px;
 
+}
+.waiting-for{
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-style: Italic;
+  font-size: 16px;
+  display: flex;
+  gap: 5px;
+  color: #BABABA;
 }
 
 .btn {
@@ -433,22 +424,14 @@ td {
 .dots {
   position: relative;
   top: 5px;
-  left: 15px;
+  right: 40px;
 }
-
-.waiting {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .menu-item:hover {
-  /* height: 51px; */
   background-color: #D3F7B5;
   border-radius: 5px;
-  /* padding-top: 10px; */
 }
 #add-form{
+  /* height: 400px; */
   width: 420px;
   padding: 20px;
   background-color: #FFFFFF;
@@ -456,6 +439,11 @@ td {
   display: flex;
   flex-direction: column;
   gap:10px;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%,-0%);
+  
 }
 .doc-add{
   font-size: 18px;
@@ -478,6 +466,7 @@ td {
   font-family: 'Spline Sans', sans-serif;
   color: #2c6e6f;
 }
+
 .form-element{
   display: flex;
   flex-direction: column;
@@ -493,16 +482,59 @@ td {
   flex-direction: column;
   gap: 10px;
 }
+.doc-waiting{
+  display: none;
+}
+.form-pen{
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
 .delete-add{
   display: flex;
   justify-content: flex-end;
   gap:15px;
 }
-#add-form{
-  display:'none';
+.hidden{
+  display: none;
 }
-#form-div{
-  display: flex;
-   justify-content: center;
-   align-items: center;
+.cancel{
+   height: 34px;
+  width: 100px;
+  color: #626d82;
+  background-color: #FFFFFF;
+  border: 1px solid #B5BDCD;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: 'Spline Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+.edit-delete{
+  display: none;   /* hide first */
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 8px 0;
+  flex-direction: column;
+  top:10px;
+}
+
+.edit-delete button{
+  /* display: block; */
+  width: 100%;
+  padding: 8px 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+td{
+  position: relative;
+}
+
+.edit-delete button:hover{
+  background: #f2f2f2;
 }
