@@ -15,6 +15,8 @@ log.addEventListener('click', function () {
 let add_btn = document.querySelector(".add")
 let add_fn = document.querySelector("#form-div")
 add_btn.addEventListener('click', function () {
+    localStorage.removeItem("editIndex");
+    form.reset();
     if (add_fn.style.display === 'none') {
         add_fn.style.display = 'block';
     }
@@ -36,7 +38,7 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     let title = document.getElementById("doc-title").value;
     let status = document.getElementById("doc-status").value;
-    if (title == "" || status == "") {
+    if (title == "") {
         alert("Please Fill The Fields");
         return;
     }
@@ -69,6 +71,8 @@ form.addEventListener('submit', function (e) {
     // documents.push(newDocument);
     localStorage.setItem("documents", JSON.stringify(documents));
     form.reset();
+    waitingField.style.display = 'none';
+    add_fn.style.display = 'none';
     displayDocuments();
 });
 
@@ -83,7 +87,12 @@ function displayDocuments(filteredDoc = null) {
     }
     let tableBody = document.getElementById('table-body');
     tableBody.innerHTML = "";
-    documents.forEach((doc, index) => {
+    documents.forEach((item) => {
+        if (!item) return;
+
+        let doc = item.doc ? item.doc : item;
+        let index = item.index !== undefined ? item.index : documents.indexOf(item);
+        if(!doc) return;
         let statusClass = "";
         let btnClass = "";
         if (doc.status === 'Pending') {
@@ -136,8 +145,12 @@ searchInput.addEventListener('keyup', function () {
         displayDocuments();
         return;
     }
-    let filteredDoc = documents.filter(function (doc) {
-        return doc.title.toLowerCase().includes(searchValue);
+    let filteredDoc = documents
+    .map((doc, index) => ({ doc, index }))   // keep original index
+    .filter(function (item) {
+        return item.doc &&
+               item.doc.title &&
+               item.doc.title.toLowerCase().includes(searchValue);
     });
 
     displayDocuments(filteredDoc);
