@@ -112,9 +112,9 @@ function displayDocuments(filteredDoc = null) {
         <tr>
             <td><input type = "checkbox"></td>
             <td class = "title">${doc.title}</td>
-            <td>
+            <td class= "st-wait">
                 <span class="status ${statusClass}">${doc.status}</span>${doc.status === "Pending"
-                ? `<div class="waiting-text"><small class="waiting-for">waiting for</small> ${doc.waiting} person</div>`
+                ? `<div class="waiting-text"><p class="waiting-for">Waiting for</p> <p class="wait-person">${doc.waiting} person<p></div>`
                 : ""}
             </td>
             <td><small>${doc.date}<br>${doc.time}</small></td>
