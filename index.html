@@ -66,10 +66,10 @@
           </div>
           <div class="right-bottom">
             <div class="add">
-              <button class="add-button">Add</button>
+              <button class="add-button">Add +</button>
             </div>
             <div class="search-bar">
-              <input type="text" placeholder="Search documents" class="search">
+              <input type="text" placeholder="Search documents" class="search" name="search"> 
               <img src="images/Vector.svg" class="search-logo">
             </div>
           </div>
@@ -106,11 +106,11 @@
         <p class="doc-add">Add Document</p>
         <div class="form-element">
           <div class="doc-title-in"><label for="doc-title" class="doc-form">Document Title</label>
-            <input id="doc-title" type="text" placeholder="Enter document title" class="form-input">
+            <input id="doc-title" type="text" placeholder="Enter document title" class="form-input" name="doc-title">
           </div>
           <div class="doc-title-sel">
             <label for="doc-status" class="doc-form">Status</label>
-            <select id="doc-status" class="form-input" required>
+            <select id="doc-status" class="form-input" name="doc-status" required>
               <option  value =""disabled selected >Select Status</option>
               <option value="Need-signing">Need Signing</option>
               <option value="Pending">Pending</option>
@@ -119,7 +119,7 @@
           </div>
           <div class="doc-waiting" id="waiting-field">
             <label for="waiting-count" class="doc-form">No of Persons Waiting</label>
-            <input type="number" id="waiting-count" class="form-pen" min="1">
+            <input type="number" id="waiting-count" class="form-pen" name="form-pen" min="1">
           </div>
           <div class="delete-add">
             <button type="button" class="cancel"> Cancel</button>

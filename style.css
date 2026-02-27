@@ -98,24 +98,28 @@
 }
 
 .user-log {
-  padding-top: 30px;
+  position: absolute;
+  top: 50px;
+  right: 0;
 }
 
 .log-button {
   display: none;
-  /* position:absolute; */
   height: 34px;
   width: 100px;
   color: #626d82;
   background-color: #FFFFFF;
   border: 1px solid #B5BDCD;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Spline Sans', sans-serif;
   font-weight: 500;
   cursor: pointer;
 }
-
+.log-button:hover{
+  color: #FFFFFF;
+  background-color: #366577;
+}
 .drop-button {
   background-color: #FFFFFF;
   border: none;
@@ -353,7 +357,7 @@
 }
 
 .doc-table th,
-td {
+.doc-table td {
   font-family: "Spline Sans", sans-serif;
   font-weight: 600;
   font-style: SemiBold;
@@ -377,7 +381,7 @@ td {
 }
 
 
-.status {
+.status{
   padding: 4px 10px;
   border-radius: 22px;
   font-family: 'Inter', sans-serif;
@@ -389,6 +393,7 @@ td {
 .Need-Signing {
   background-color: #1F4451;
   color: #FFFFFF;
+  width: fit-content;
 }
 
 .Pending {
@@ -401,6 +406,7 @@ td {
 .Completed {
   background: #D3F7B5;
   color: #626D82;
+  width: fit-content;
 }
 
 .waiting-text {
@@ -572,11 +578,14 @@ td {
 }
 
 .edit-delete button {
-  /* display: block; */
+  display: block;
   width: 100%;
   padding: 8px 15px;
   border: none;
-  background: none;
+  background: #FFFFFF;td {
+  position: relative;
+}
+
   cursor: pointer;
   text-align: left;
 }
@@ -585,10 +594,19 @@ td {
   position: relative;
 }
 
-.edit-delete button:hover {
-  background: rgb(241, 241, 241);
+.btn-d:hover{
+  color: white;
+  background-color: red;
 }
-
-.btn-d {
+.btn-e:hover{
+  color: white;
+  background-color: green;
+}
+.btn-d{
+  font-size: 14px;
   color: red;
+}
+.btn-e{
+  font-size: 14px;
+  color: green;
 }

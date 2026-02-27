@@ -99,7 +99,7 @@ function displayDocuments(filteredDoc = null) {
             statusClass = 'Pending';
             btnClass = 'Preview';
         }
-        else if (doc.status === 'Need Signing') {
+        else if (doc.status === 'Need-Signing') {
             statusClass = 'Need-Signing';
             btnClass = 'Sign Now';
         }
@@ -112,10 +112,12 @@ function displayDocuments(filteredDoc = null) {
         <tr>
             <td><input type = "checkbox"></td>
             <td class = "title">${doc.title}</td>
-            <td class= "st-wait">
+            <td>
+            <div class="st-wait">
                 <span class="status ${statusClass}">${doc.status}</span>${doc.status === "Pending"
-                ? `<div class="waiting-text"><p class="waiting-for">Waiting for</p> <p class="wait-person">${doc.waiting} person<p></div>`
+                ? `<div class="waiting-text"><p class="waiting-for">Waiting for</p> <p class="wait-person">${doc.waiting} person</p></div>`
                 : ""}
+            </div>
             </td>
             <td><small>${doc.date}<br>${doc.time}</small></td>
             <td><button class="btn ${statusClass}">${btnClass}</button></td>
