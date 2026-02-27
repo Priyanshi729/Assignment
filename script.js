@@ -99,7 +99,7 @@ function displayDocuments(filteredDoc = null) {
             statusClass = 'Pending';
             btnClass = 'Preview';
         }
-        else if (doc.status === 'Need-Signing') {
+        else if (doc.status === 'Need-signing') {
             statusClass = 'Need-Signing';
             btnClass = 'Sign Now';
         }
