@@ -1,17 +1,27 @@
-"use strict";
-let log = document.querySelector(".drop-button");
-let logout = document.querySelector(".log-button");
-let add_btn = document.querySelector(".add");
-let add_fn = document.querySelector("#form-div");
-let cancel = document.querySelector(".cancel");
-let form = document.querySelector("#form-con");
+
+let log = document.querySelector<HTMLButtonElement>(".drop-button")
+let logout = document.querySelector<HTMLButtonElement>(".log-button")
+let add_btn = document.querySelector<HTMLDivElement>(".add");
+let add_fn = document.querySelector<HTMLDivElement>("#form-div");
+let cancel = document.querySelector<HTMLButtonElement>(".cancel")
+let form = document.querySelector<HTMLFormElement>("#form-con");
 //when status pending show waiting for
-let statusSelect = document.querySelector("#doc-status");
-let waitingField = document.querySelector("#waiting-field");
-let formHeading = document.querySelector("#form-heading");
-let submitBtn = document.querySelector("#submit-btn");
+let statusSelect = document.querySelector<HTMLSelectElement>("#doc-status");
+let waitingField = document.querySelector<HTMLDivElement>("#waiting-field");
+let formHeading = document.querySelector<HTMLParagraphElement>("#form-heading");
+let submitBtn = document.querySelector<HTMLButtonElement>("#submit-btn");
+
+interface myDocument {
+    id: string;
+    title: string;
+    status: string;
+    waiting: number;
+    date: string;
+    time: string;
+}
+
 //Logout Button
-log === null || log === void 0 ? void 0 : log.addEventListener('click', function () {
+log?.addEventListener('click', function () {
     if (logout) {
         if (logout.style.display === 'none') {
             logout.style.display = 'block';
@@ -21,80 +31,92 @@ log === null || log === void 0 ? void 0 : log.addEventListener('click', function
         }
     }
 });
+
 //Display Functionality of add form
-add_btn === null || add_btn === void 0 ? void 0 : add_btn.addEventListener('click', function () {
+add_btn?.addEventListener('click', function () {
+
     localStorage.removeItem("editIndex");
-    form === null || form === void 0 ? void 0 : form.reset();
-    if (formHeading)
-        formHeading.textContent = "Add Document";
-    if (submitBtn)
-        submitBtn.textContent = "Add";
+    form?.reset();
+
+    if (formHeading) formHeading.textContent = "Add Document";
+    if (submitBtn) submitBtn.textContent = "Add";
+
     if (add_fn) {
         add_fn.style.display = "block";
     }
 });
+
 //Cancel Button display functioning
-cancel === null || cancel === void 0 ? void 0 : cancel.addEventListener('click', function () {
+cancel?.addEventListener('click', function () {
     if (add_fn) {
         add_fn.style.display = 'none';
     }
-});
+})
+
 //Add Functionality
-form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
+form?.addEventListener('submit', function (e) {
     e.preventDefault();
-    let title = document.querySelector("#doc-title");
-    let status = document.querySelector("#doc-status");
-    let waitingCount = document.querySelector("#waiting-count");
+
+    let title = document.querySelector<HTMLInputElement>("#doc-title");
+    let status = document.querySelector<HTMLSelectElement>("#doc-status");
+    let waitingCount = document.querySelector<HTMLInputElement>("#waiting-count");
+
     if (!title || title.value.trim() === "") {
         alert("Please Fill the Field");
         return;
     }
-    let documents = JSON.parse(localStorage.getItem("documents") || "[]");
+
+    let documents: myDocument[] = JSON.parse(localStorage.getItem("documents") || "[]");
     if (!Array.isArray(documents)) {
         documents = [];
     }
     let newDoc = {
         id: Date.now().toString(),
         title: title.value,
-        status: (status === null || status === void 0 ? void 0 : status.value) || "Pending",
-        waiting: (status === null || status === void 0 ? void 0 : status.value) === "Pending" ? Number(waitingCount === null || waitingCount === void 0 ? void 0 : waitingCount.value) || 0 : 0,
+        status: status?.value || "Pending",
+        waiting: status?.value === "Pending" ? Number(waitingCount?.value) || 0 : 0,
         date: new Date().toLocaleDateString(),
         time: new Date().toLocaleTimeString()
     };
+
     let editIndex = localStorage.getItem("editIndex");
+
     if (editIndex) {
+
         let index = documents.findIndex(d => d.id === editIndex);
+
         if (index !== -1) {
             newDoc.id = editIndex;
             documents[index] = newDoc;
         }
+
         localStorage.removeItem("editIndex");
-    }
-    else {
+
+    } else {
         documents.push(newDoc);
     }
+
     localStorage.setItem("documents", JSON.stringify(documents));
-    form === null || form === void 0 ? void 0 : form.reset();
-    add_fn.style.display = 'none';
-    waitingField.style.display = 'none';
+    form?.reset();
+    add_fn!.style.display = 'none';
+    waitingField!.style.display = 'none';
     if (searchInput && searchInput.value.trim() !== "") {
         searchInput.dispatchEvent(new Event("keyup"));
-    }
-    else {
+    } else {
         displayDocuments();
     }
     // displayDocuments();
-});
+})
+
 //Display Functionality
-function displayDocuments(filteredDoc = null) {
-    let myArray = JSON.parse(localStorage.getItem("documents") || "[]");
+function displayDocuments(filteredDoc: myDocument[] | null = null): void {
+    let myArray: myDocument[] = JSON.parse(localStorage.getItem("documents") || "[]");
     if (!Array.isArray(myArray)) {
         myArray = [];
     }
-    let data = filteredDoc !== null ? filteredDoc : myArray;
-    let tableBody = document.querySelector("#table-body");
-    if (!tableBody)
-        return;
+    let data: myDocument[] = filteredDoc !== null ? filteredDoc : myArray;
+    let tableBody = document.querySelector<HTMLTableSectionElement>("#table-body");
+    if (!tableBody) return;
     tableBody.innerHTML = "";
     if (data.length === 0) {
         tableBody.innerHTML = `
@@ -107,6 +129,7 @@ function displayDocuments(filteredDoc = null) {
         data = [];
     }
     data.forEach((doc) => {
+
         // const id = doc.id;
         let statusClass = "";
         let btnClass = "";
@@ -129,8 +152,8 @@ function displayDocuments(filteredDoc = null) {
             <td>
             <div class="st-wait">
                 <span class="status ${statusClass}">${doc.status}</span>${doc.status === "Pending"
-            ? `<div class="waiting-text"><p class="waiting-for">Waiting for</p> <p class="wait-person">${doc.waiting} person</p></div>`
-            : ""}
+                ? `<div class="waiting-text"><p class="waiting-for">Waiting for</p> <p class="wait-person">${doc.waiting} person</p></div>`
+                : ""}
             </div>
             </td>
             <td><small>${doc.date}<br>${doc.time}</small></td>
@@ -145,19 +168,23 @@ function displayDocuments(filteredDoc = null) {
         </tr>
         `;
         tableBody.insertAdjacentHTML("beforeend", row);
+
     });
-}
-;
+};
 displayDocuments();
-document.addEventListener("click", function (e) {
-    var _a;
-    const target = e.target;
+
+document.addEventListener("click", function (e: Event) {
+    const target = e.target as HTMLElement;
+
     // If clicked on dots icon = toggle menu
     if (target && target.classList.contains("dots")) {
+
         document.querySelectorAll(".edit-delete").forEach((menu) => {
-            menu.style.display = "none";
+            (menu as HTMLElement).style.display = "none";
         });
-        const menu = (_a = target.closest(".ed-button")) === null || _a === void 0 ? void 0 : _a.querySelector(".edit-delete");
+
+        const menu = target.closest(".ed-button")?.querySelector(".edit-delete") as HTMLElement | null;
+
         if (menu) {
             menu.style.display = "flex";
         }
@@ -165,96 +192,115 @@ document.addEventListener("click", function (e) {
     // If clicked anywhere else = close all menus
     else {
         document.querySelectorAll(".edit-delete").forEach((menu) => {
-            menu.style.display = "none";
+            (menu as HTMLElement).style.display = "none";
         });
     }
 });
+
 //Edit Functionality
-function editDocument(id) {
-    let documents = JSON.parse(localStorage.getItem("documents") || "[]");
-    if (!Array.isArray(documents))
-        return;
-    let doc = documents.find(d => d.id === id);
-    if (!doc)
-        return;
-    const titleInput = document.querySelector('#doc-title');
-    const statusSelect = document.querySelector('#doc-status');
-    const waitingInput = document.querySelector('#waiting-count');
-    if (titleInput)
-        titleInput.value = doc.title;
-    if (statusSelect)
-        statusSelect.value = doc.status;
-    if (waitingInput)
-        waitingInput.value = doc.waiting.toString();
+function editDocument(id: string): void {
+    let documents: myDocument[] = JSON.parse(localStorage.getItem("documents") || "[]");
+
+    if (!Array.isArray(documents)) return;
+
+    let doc = documents.find(d => d.id === id)
+
+    if (!doc) return;
+
+    const titleInput = document.querySelector<HTMLInputElement>('#doc-title');
+    const statusSelect = document.querySelector<HTMLSelectElement>('#doc-status');
+    const waitingInput = document.querySelector<HTMLInputElement>('#waiting-count');
+
+    if (titleInput) titleInput.value = doc.title;
+    if (statusSelect) statusSelect.value = doc.status;
+    if (waitingInput) waitingInput.value = doc.waiting.toString();
+
     if (waitingField) {
         if (doc.status === "Pending") {
             waitingField.style.display = "block";
-            if (waitingInput)
-                waitingInput.required = true;
-        }
-        else {
+            if (waitingInput) waitingInput.required = true;
+        } else {
             waitingField.style.display = "none";
-            if (waitingInput)
-                waitingInput.required = false;
+            if (waitingInput) waitingInput.required = false;
         }
     }
+
     //storing the index of document in which we are editing
     localStorage.setItem('editIndex', id);
     // change heading and button for edit mode
-    if (formHeading)
-        formHeading.textContent = "Edit Document";
-    if (submitBtn)
-        submitBtn.textContent = "Edit";
+    if (formHeading) formHeading.textContent = "Edit Document";
+    if (submitBtn) submitBtn.textContent = "Edit";
     if (searchInput) {
         searchInput.value = "";
     }
+
+
     if (add_fn) {
         add_fn.style.display = 'block';
     }
+
 }
+
 //Delete Function
-function deleteDocument(id) {
-    let documents = JSON.parse(localStorage.getItem("documents") || "[]");
-    if (!Array.isArray(documents))
-        return;
+function deleteDocument(id: string): void {
+
+    let documents: myDocument[] =
+        JSON.parse(localStorage.getItem("documents") || "[]");
+
+    if (!Array.isArray(documents)) return;
+
     documents = documents.filter(doc => doc.id !== id);
+
     localStorage.setItem("documents", JSON.stringify(documents));
     if (searchInput) {
         searchInput.value = "";
     }
+
     displayDocuments();
 }
+
 if (statusSelect && waitingField) {
     statusSelect.addEventListener("change", function () {
-        if (statusSelect.value === "Pending") {
-            waitingField.style.display = "block";
+
+        if (statusSelect!.value === "Pending") {
+            waitingField!.style.display = "block";
+        } else {
+            waitingField!.style.display = "none";
         }
-        else {
-            waitingField.style.display = "none";
-        }
+
     });
 }
-let searchInput = document.querySelector(".search");
-searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener('keyup', function () {
-    var _a, _b;
-    let searchValue = (_b = (_a = searchInput === null || searchInput === void 0 ? void 0 : searchInput.value) === null || _a === void 0 ? void 0 : _a.toLowerCase()) !== null && _b !== void 0 ? _b : "";
-    let documents = JSON.parse(localStorage.getItem("documents") || '[]');
+let searchInput = document.querySelector<HTMLInputElement>(".search");
+searchInput?.addEventListener('keyup', function () {
+
+    let searchValue = searchInput?.value?.toLowerCase() ?? "";
+
+    let documents: myDocument[] =
+        JSON.parse(localStorage.getItem("documents") || '[]');
+
     if (!Array.isArray(documents)) {
         documents = [];
     }
+
     if (searchValue === "") {
         displayDocuments();
         return;
     }
-    let filteredDoc = documents.filter((doc) => doc.title.toLowerCase().includes(searchValue));
+    let filteredDoc: myDocument[] = documents.filter((doc) =>
+        doc.title.toLowerCase().includes(searchValue)
+    );
+
     displayDocuments(filteredDoc);
 });
-document.addEventListener("click", function (e) {
-    const target = e.target;
+document.addEventListener("click", function (e: Event) {
+    const target = e.target as HTMLElement;
+
     if (add_fn && add_fn.style.display === "block") {
-        if (!target.closest("#form-div") &&
+
+        if (
+            !target.closest("#form-div") &&
             !target.closest(".add") &&
-            !target.closest(".btn-e") // ignore edit button
+            !target.closest(".btn-e")   // ignore edit button
         ) {
             add_fn.style.display = "none";
         }

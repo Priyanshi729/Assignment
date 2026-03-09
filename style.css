@@ -6,7 +6,7 @@
 
 .container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .sidebar {
@@ -35,21 +35,27 @@
 .user-details {
   position: relative;
   height: 69px;
-  width: 250px;
+  /* max-width: 250px; */
+
+  
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 40px;
+  /* flex-wrap: wrap; */
 
   border: 0.5px solid #B5BDCD;
   border-radius: 6px;
   padding: 10px;
+
 }
 
 .user {
   display: flex;
-  flex-wrap: nowrap;
+  /* flex-wrap: nowrap; */
   gap: 12px;
+  min-width:0;
 }
 
 .user-logo {
@@ -60,7 +66,7 @@
 .user-info {
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
+  /* flex-wrap: nowrap; */
   gap: 4px;
 
 }
@@ -89,7 +95,7 @@
 
 #user-drop {
   position: relative;
-  right: 20px;
+  /* right: 20px; */
   height: 19px;
   width: 19px;
   display: flex;
@@ -251,6 +257,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .right-bottom {
@@ -289,8 +296,8 @@
   position: relative;
   width: 250px;
   height: 40px;
-
 }
+
 
 .search {
 
@@ -318,8 +325,9 @@
 }
 
 #table-content {
-  /* max-height: 400px; */
+  max-height: 620px;
   width: 100%;
+  /* overflow-x: auto; */
   /* overflow-y: auto; */
   background: #FFFFFF;
   border: 0.5px solid #B5BDCD;
@@ -330,6 +338,7 @@
 .doc-table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 700px;
 
 }
 
@@ -379,7 +388,12 @@
 .doc-table tr:last-child td {
   border-bottom: none;
 }
-
+.doc-table thead th {
+  position: sticky;
+  top: 0;
+  background: #FFFFFF;
+  z-index: 2;
+}
 
 .status{
   padding: 4px 10px;
@@ -390,7 +404,7 @@
   font-size: 16px;
 }
 
-.Need-Signing {
+.Need-signing {
   background-color: #1F4451;
   color: #FFFFFF;
   width: fit-content;
