@@ -11,6 +11,15 @@ let waitingField = document.querySelector<HTMLDivElement>("#waiting-field");
 let formHeading = document.querySelector<HTMLParagraphElement>("#form-heading");
 let submitBtn = document.querySelector<HTMLButtonElement>("#submit-btn");
 
+//For Pending
+const Status_pending = "Pending";
+//For Signing 
+const Need_Signing = "Need-signing";
+//For Completed
+const Completed = "Completed";
+
+
+
 interface myDocument {
     id: string;
     title: string;
@@ -65,6 +74,14 @@ form?.addEventListener('submit', function (e) {
         alert("Please Fill the Field");
         return;
     }
+    if (status?.value === Status_pending) {
+        let waitingValue = Number(waitingCount?.value);
+
+        if (!waitingCount || waitingValue < 1) {
+            alert("Waiting person must be at least 1 when status is Pending");
+            return;
+        }
+    }
 
     let documents: myDocument[] = JSON.parse(localStorage.getItem("documents") || "[]");
     if (!Array.isArray(documents)) {
@@ -73,8 +90,8 @@ form?.addEventListener('submit', function (e) {
     let newDoc = {
         id: Date.now().toString(),
         title: title.value,
-        status: status?.value || "Pending",
-        waiting: status?.value === "Pending" ? Number(waitingCount?.value) || 0 : 0,
+        status: status?.value || Status_pending,
+        waiting: status?.value === Status_pending ? Number(waitingCount?.value) || 0 : 0,
         date: new Date().toLocaleDateString(),
         time: new Date().toLocaleTimeString()
     };
@@ -133,16 +150,16 @@ function displayDocuments(filteredDoc: myDocument[] | null = null): void {
         // const id = doc.id;
         let statusClass = "";
         let btnClass = "";
-        if (doc.status === "Pending") {
-            statusClass = "Pending";
+        if (doc.status === Status_pending) {
+            statusClass = Status_pending;
             btnClass = "Preview";
         }
-        else if (doc.status === "Need-signing") {
-            statusClass = "Need-signing";
+        else if (doc.status === Need_Signing) {
+            statusClass = Need_Signing;
             btnClass = "Sign Now";
         }
         else {
-            statusClass = "Completed";
+            statusClass = Completed;
             btnClass = "Download Pdf";
         }
         let row = `
@@ -216,7 +233,7 @@ function editDocument(id: string): void {
     if (waitingInput) waitingInput.value = doc.waiting.toString();
 
     if (waitingField) {
-        if (doc.status === "Pending") {
+        if (doc.status === Status_pending) {
             waitingField.style.display = "block";
             if (waitingInput) waitingInput.required = true;
         } else {
@@ -262,7 +279,7 @@ function deleteDocument(id: string): void {
 if (statusSelect && waitingField) {
     statusSelect.addEventListener("change", function () {
 
-        if (statusSelect!.value === "Pending") {
+        if (statusSelect!.value === Status_pending) {
             waitingField!.style.display = "block";
         } else {
             waitingField!.style.display = "none";

@@ -10,6 +10,12 @@ let statusSelect = document.querySelector("#doc-status");
 let waitingField = document.querySelector("#waiting-field");
 let formHeading = document.querySelector("#form-heading");
 let submitBtn = document.querySelector("#submit-btn");
+//For Pending
+const Status_pending = "Pending";
+//For Signing 
+const Need_Signing = "Need-signing";
+//For Completed
+const Completed = "Completed";
 //Logout Button
 log === null || log === void 0 ? void 0 : log.addEventListener('click', function () {
     if (logout) {
@@ -49,6 +55,13 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         alert("Please Fill the Field");
         return;
     }
+    if ((status === null || status === void 0 ? void 0 : status.value) === Status_pending) {
+        let waitingValue = Number(waitingCount === null || waitingCount === void 0 ? void 0 : waitingCount.value);
+        if (!waitingCount || waitingValue < 1) {
+            alert("Waiting person must be at least 1 when status is Pending");
+            return;
+        }
+    }
     let documents = JSON.parse(localStorage.getItem("documents") || "[]");
     if (!Array.isArray(documents)) {
         documents = [];
@@ -56,8 +69,8 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
     let newDoc = {
         id: Date.now().toString(),
         title: title.value,
-        status: (status === null || status === void 0 ? void 0 : status.value) || "Pending",
-        waiting: (status === null || status === void 0 ? void 0 : status.value) === "Pending" ? Number(waitingCount === null || waitingCount === void 0 ? void 0 : waitingCount.value) || 0 : 0,
+        status: (status === null || status === void 0 ? void 0 : status.value) || Status_pending,
+        waiting: (status === null || status === void 0 ? void 0 : status.value) === Status_pending ? Number(waitingCount === null || waitingCount === void 0 ? void 0 : waitingCount.value) || 0 : 0,
         date: new Date().toLocaleDateString(),
         time: new Date().toLocaleTimeString()
     };
@@ -110,16 +123,16 @@ function displayDocuments(filteredDoc = null) {
         // const id = doc.id;
         let statusClass = "";
         let btnClass = "";
-        if (doc.status === "Pending") {
-            statusClass = "Pending";
+        if (doc.status === Status_pending) {
+            statusClass = Status_pending;
             btnClass = "Preview";
         }
-        else if (doc.status === "Need-signing") {
-            statusClass = "Need-signing";
+        else if (doc.status === Need_Signing) {
+            statusClass = Need_Signing;
             btnClass = "Sign Now";
         }
         else {
-            statusClass = "Completed";
+            statusClass = Completed;
             btnClass = "Download Pdf";
         }
         let row = `
@@ -187,7 +200,7 @@ function editDocument(id) {
     if (waitingInput)
         waitingInput.value = doc.waiting.toString();
     if (waitingField) {
-        if (doc.status === "Pending") {
+        if (doc.status === Status_pending) {
             waitingField.style.display = "block";
             if (waitingInput)
                 waitingInput.required = true;
@@ -226,7 +239,7 @@ function deleteDocument(id) {
 }
 if (statusSelect && waitingField) {
     statusSelect.addEventListener("change", function () {
-        if (statusSelect.value === "Pending") {
+        if (statusSelect.value === Status_pending) {
             waitingField.style.display = "block";
         }
         else {
